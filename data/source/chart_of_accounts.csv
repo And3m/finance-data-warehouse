@@ -1,0 +1,16 @@
+account_code,account_name,account_type,statement,normal_balance,pnl_group
+1000,Cash at Bank,Asset,BS,Debit,
+1100,Accounts Receivable,Asset,BS,Debit,
+1200,Inventory,Asset,BS,Debit,
+1300,Input GST Credit,Asset,BS,Debit,
+2000,Accounts Payable,Liability,BS,Credit,
+2100,Output GST Payable,Liability,BS,Credit,
+3000,Share Capital,Equity,BS,Credit,
+4000,Sales Revenue,Revenue,PL,Credit,Revenue
+5000,Cost of Goods Sold,Expense,PL,Debit,Cost of Sales
+6000,Salaries and Wages,Expense,PL,Debit,Operating Expenses
+6100,Rent,Expense,PL,Debit,Operating Expenses
+6200,Freight Outward,Expense,PL,Debit,Operating Expenses
+6300,Marketing and Trade Promotions,Expense,PL,Debit,Operating Expenses
+6400,Utilities,Expense,PL,Debit,Operating Expenses
+6500,Bank Charges,Expense,PL,Debit,Finance Costs

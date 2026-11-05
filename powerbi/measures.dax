@@ -1,0 +1,88 @@
+// =====================================================================
+// Finance Data Warehouse - DAX measures
+// Create a measure table named _Measures and paste each measure in.
+// Model: fact_gl, fact_ar_invoice, fact_ap_invoice related to the
+// dim_* tables on their surrogate keys (single direction, many to one).
+// Mark dim_date as the date table on full_date.
+// Sign convention: fact_gl[amount] = debit - credit.
+// =====================================================================
+
+// ---------- Profit and loss ----------
+Revenue =
+-CALCULATE ( SUM ( fact_gl[amount] ), dim_account[pnl_group] = "Revenue" )
+
+Cost of Sales =
+CALCULATE ( SUM ( fact_gl[amount] ), dim_account[pnl_group] = "Cost of Sales" )
+
+Gross Profit = [Revenue] - [Cost of Sales]
+
+Gross Margin % = DIVIDE ( [Gross Profit], [Revenue] )
+
+Operating Expenses =
+CALCULATE ( SUM ( fact_gl[amount] ), dim_account[pnl_group] = "Operating Expenses" )
+
+Finance Costs =
+CALCULATE ( SUM ( fact_gl[amount] ), dim_account[pnl_group] = "Finance Costs" )
+
+Net Profit = [Gross Profit] - [Operating Expenses] - [Finance Costs]
+
+Net Margin % = DIVIDE ( [Net Profit], [Revenue] )
+
+Revenue YTD = TOTALYTD ( [Revenue], dim_date[full_date], "03-31" )
+
+Net Profit YTD = TOTALYTD ( [Net Profit], dim_date[full_date], "03-31" )
+
+// ---------- Balance sheet and cash ----------
+// Balances are cumulative from the first posting to the last date in context.
+Account Balance =
+CALCULATE (
+    SUM ( fact_gl[amount] ),
+    FILTER ( ALL ( dim_date ), dim_date[full_date] <= MAX ( dim_date[full_date] ) )
+)
+
+Cash Balance = CALCULATE ( [Account Balance], dim_account[account_code] = "1000" )
+
+Receivables Balance = CALCULATE ( [Account Balance], dim_account[account_code] = "1100" )
+
+Payables Balance = -CALCULATE ( [Account Balance], dim_account[account_code] = "2000" )
+
+Inventory Balance = CALCULATE ( [Account Balance], dim_account[account_code] = "1200" )
+
+// ---------- Working capital ----------
+// DSO and DPO on a trailing 90-day basis.
+Revenue Last 90 Days =
+CALCULATE ( [Revenue], DATESINPERIOD ( dim_date[full_date], MAX ( dim_date[full_date] ), -90, DAY ) )
+
+DSO (days) = DIVIDE ( [Receivables Balance], [Revenue Last 90 Days] * 1.18 ) * 90
+
+Purchases Last 90 Days =
+CALCULATE (
+    SUM ( fact_ap_invoice[total_amount] ),
+    USERELATIONSHIP ( fact_ap_invoice[invoice_date_key], dim_date[date_key] ),
+    DATESINPERIOD ( dim_date[full_date], MAX ( dim_date[full_date] ), -90, DAY )
+)
+
+DPO (days) = DIVIDE ( [Payables Balance], [Purchases Last 90 Days] ) * 90
+
+// ---------- Receivables and payables aging (snapshot) ----------
+AR Open Amount = SUM ( fact_ar_invoice[open_amount] )
+
+AR Overdue Amount =
+CALCULATE ( [AR Open Amount], fact_ar_invoice[days_past_due] > 0 )
+
+AR Overdue % = DIVIDE ( [AR Overdue Amount], [AR Open Amount] )
+
+AR Over 90 Days =
+CALCULATE ( [AR Open Amount], fact_ar_invoice[aging_bucket] = "90+" )
+
+AP Open Amount = SUM ( fact_ap_invoice[open_amount] )
+
+AP Overdue Amount =
+CALCULATE ( [AP Open Amount], fact_ap_invoice[days_past_due] > 0 )
+
+// ---------- Controls ----------
+Trial Balance Check =
+VAR net = SUM ( fact_gl[amount] )
+RETURN IF ( ABS ( net ) < 0.01, "Balanced", "Out of balance by " & FORMAT ( net, "#,0.00" ) )
+
+AR Reconciliation Difference = [Receivables Balance] - CALCULATE ( [AR Open Amount], ALL ( dim_date ) )

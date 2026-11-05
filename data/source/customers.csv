@@ -1,0 +1,41 @@
+customer_id,customer_name,city,cost_center_code,credit_terms_days
+C001,Annapurna Supermarket Bengaluru,Bengaluru,BLR,30
+C002,Royal Stores Hyderabad,Hyderabad,HYD,15
+C003,Annapurna Retail Chennai,Chennai,CHN,45
+C004,Sri Lakshmi Supermarket Coimbatore,Coimbatore,CBE,30
+C005,Daily Needs Retail Bengaluru,Bengaluru,BLR,15
+C006,Royal Retail Hyderabad,Hyderabad,HYD,45
+C007,New India Retail Chennai,Chennai,CHN,30
+C008,Green Valley Mart Coimbatore,Coimbatore,CBE,30
+C009,Green Valley Stores Bengaluru,Bengaluru,BLR,30
+C010,Annapurna Mart Hyderabad,Hyderabad,HYD,15
+C011,Sai Balaji Retail Chennai,Chennai,CHN,30
+C012,New India Retail Coimbatore,Coimbatore,CBE,15
+C013,Annapurna Retail Bengaluru,Bengaluru,BLR,30
+C014,Sai Balaji Retail Hyderabad,Hyderabad,HYD,30
+C015,Sri Lakshmi Stores Chennai,Chennai,CHN,30
+C016,Royal Supermarket Coimbatore,Coimbatore,CBE,45
+C017,New India Traders Bengaluru,Bengaluru,BLR,30
+C018,Sai Balaji Stores Hyderabad,Hyderabad,HYD,30
+C019,Ganesh Stores Chennai,Chennai,CHN,30
+C020,New India Mart Coimbatore,Coimbatore,CBE,30
+C021,Royal Traders Bengaluru,Bengaluru,BLR,15
+C022,Sri Lakshmi Traders Hyderabad,Hyderabad,HYD,45
+C023,Annapurna Stores Chennai,Chennai,CHN,30
+C024,New India Mart Coimbatore,Coimbatore,CBE,45
+C025,Metro Stores Bengaluru,Bengaluru,BLR,30
+C026,Daily Needs Traders Hyderabad,Hyderabad,HYD,45
+C027,Om Shakti Traders Chennai,Chennai,CHN,30
+C028,Daily Needs Mart Coimbatore,Coimbatore,CBE,15
+C029,Annapurna Stores Bengaluru,Bengaluru,BLR,30
+C030,Ganesh Supermarket Hyderabad,Hyderabad,HYD,45
+C031,Ganesh Mart Chennai,Chennai,CHN,30
+C032,Sri Lakshmi Supermarket Coimbatore,Coimbatore,CBE,30
+C033,Annapurna Traders Bengaluru,Bengaluru,BLR,45
+C034,New India Supermarket Hyderabad,Hyderabad,HYD,30
+C035,Green Valley Retail Chennai,Chennai,CHN,15
+C036,Daily Needs Retail Coimbatore,Coimbatore,CBE,30
+C037,Sai Balaji Stores Bengaluru,Bengaluru,BLR,15
+C038,Sai Balaji Mart Hyderabad,Hyderabad,HYD,15
+C039,Sai Balaji Traders Chennai,Chennai,CHN,30
+C040,Royal Retail Coimbatore,Coimbatore,CBE,15
